@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#3B0A1A">
+<title>Sales Associate Hiring </title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --garnet:#3B0A1A;
+  --garnet-2:#5A1329;
+  --gold:#C9A24B;
+  --gold-soft:#E8D3A0;
+  --pearl:#FAF6F1;
+  --ink:#241418;
+  --muted:#6F5F63;
+  --line:#E6DCD6;
+  --error:#B3261E;
+  --ok:#2E7D5B;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{font-family:"Hanken Grotesk",system-ui,sans-serif;background:var(--pearl);color:var(--ink);line-height:1.55;font-size:16px;padding-bottom:env(safe-area-inset-bottom)}
+h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;line-height:1.1}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
+/* HERO */
+.hero{background:radial-gradient(120% 80% at 80% 0%,var(--garnet-2) 0%,var(--garnet) 60%);color:#fff;padding:calc(20px + env(safe-area-inset-top)) 22px 56px;position:relative;overflow:hidden}
+.brand{font-family:"Cormorant Garamond",serif;font-size:1.35rem;letter-spacing:.04em;color:var(--gold-soft);font-weight:600}
+.hero h1{font-size:2.6rem;margin-top:34px;max-width:11ch}
+.hero p.lead{margin-top:14px;color:#EBDDE0;max-width:32ch;font-size:1.05rem}
+.gem{position:absolute;right:-34px;top:70px;width:170px;height:150px;opacity:.95;animation:glint 5s ease-in-out infinite}
+.gem svg{width:100%;height:100%;display:block}
+@keyframes glint{0%,100%{filter:brightness(1)}50%{filter:brightness(1.35)}}
+.cta{display:inline-flex;align-items:center;justify-content:center;margin-top:26px;background:var(--gold);color:var(--garnet);font-weight:600;text-decoration:none;padding:15px 26px;border-radius:999px;min-height:50px;font-size:1rem}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.facts span{border:1px solid rgba(232,211,160,.45);color:var(--gold-soft);border-radius:999px;padding:6px 13px;font-size:.85rem}
+
+/* PERKS */
+.perks{padding:34px 22px 8px;max-width:640px;margin:0 auto}
+.perks h2{font-size:1.9rem;color:var(--garnet)}
+.perks ul{list-style:none;margin-top:16px;display:grid;gap:14px}
+.perks li{display:flex;gap:14px;align-items:flex-start;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.perks li:last-child{border-bottom:0}
+.perks .dot{flex:none;width:34px;height:34px;border-radius:50%;background:var(--garnet);color:var(--gold-soft);display:grid;place-items:center}
+.perks .dot svg{width:18px;height:18px}
+.perks b{display:block;font-weight:600}
+.perks small{color:var(--muted);font-size:.93rem}
+
+/* FORM */
+.wrap{padding:26px 16px 48px;max-width:640px;margin:0 auto}
+.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:24px 18px;box-shadow:0 18px 40px -26px rgba(59,10,26,.45)}
+.card>h2{font-size:2rem;color:var(--garnet)}
+.card>p.sub{color:var(--muted);margin-top:6px;font-size:.95rem}
+.progress{height:5px;background:var(--line);border-radius:9px;margin:18px 0 6px;overflow:hidden}
+.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--garnet));transition:width .35s ease}
+fieldset{border:0;margin-top:26px}
+legend{font-family:"Cormorant Garamond",serif;font-size:1.45rem;font-weight:700;color:var(--garnet);margin-bottom:12px;padding:0}
+.field{margin-top:16px}
+label.q,.q{display:block;font-weight:600;font-size:.98rem;margin-bottom:8px}
+.hint{font-weight:400;color:var(--muted);font-size:.86rem}
+input[type=text],input[type=tel],input[type=email],textarea{width:100%;font:inherit;font-size:16px;color:var(--ink);background:var(--pearl);border:1.5px solid var(--line);border-radius:14px;padding:14px;min-height:50px;transition:border-color .15s,background .15s;-webkit-appearance:none;appearance:none}
+textarea{min-height:120px;resize:vertical}
+input:focus,textarea:focus{outline:none;border-color:var(--gold);background:#fff;box-shadow:0 0 0 3px rgba(201,162,75,.25)}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chips input{position:absolute;opacity:0;pointer-events:none}
+.chips label{border:1.5px solid var(--line);background:var(--pearl);border-radius:999px;padding:11px 16px;font-size:.95rem;cursor:pointer;min-height:46px;display:inline-flex;align-items:center;transition:all .15s;user-select:none}
+.chips input:checked+label{background:var(--garnet);border-color:var(--garnet);color:#fff}
+.chips input:focus-visible+label{outline:3px solid var(--gold);outline-offset:2px}
+.counter{text-align:right;font-size:.8rem;color:var(--muted);margin-top:4px}
+
+/* UPLOAD */
+.drop{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;border:2px dashed var(--gold);background:#FFFCF5;border-radius:18px;padding:26px 14px;cursor:pointer;transition:background .15s}
+.drop:hover,.drop.drag{background:#FBF1D8}
+.drop svg{width:34px;height:34px;color:var(--garnet)}
+.drop strong{color:var(--garnet)}
+.drop small{color:var(--muted)}
+.drop.has{border-style:solid;background:#F2F8F4;border-color:var(--ok)}
+.file-input{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden}
+.file-input:focus-visible+.drop{outline:3px solid var(--gold);outline-offset:2px}
+.fname{word-break:break-all;font-weight:600}
+
+.err{display:none;color:var(--error);font-size:.86rem;margin-top:6px;font-weight:500}
+.invalid .err{display:block}
+.invalid input[type=text],.invalid input[type=tel],.invalid input[type=email],.invalid textarea{border-color:var(--error)}
+.invalid .drop{border-color:var(--error)}
+.hp{position:absolute;left:-9999px;height:0;overflow:hidden}
+
+.submit{width:100%;margin-top:28px;border:0;background:var(--garnet);color:#fff;font:inherit;font-weight:600;font-size:1.05rem;padding:17px;border-radius:999px;min-height:56px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:transform .1s,background .15s}
+.submit:active{transform:scale(.98)}
+.submit:hover{background:var(--garnet-2)}
+.submit[disabled]{opacity:.75;cursor:wait}
+.spin{width:18px;height:18px;border:2.5px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite;display:none}
+.loading .spin{display:block}
+@keyframes sp{to{transform:rotate(360deg)}}
+.formerr{margin-top:14px;padding:12px 14px;border-radius:12px;background:#FDECEA;color:var(--error);font-size:.92rem;display:none}
+.note{text-align:center;color:var(--muted);font-size:.82rem;margin-top:14px}
+
+/* THANK YOU */
+.thanks{display:none;text-align:center;padding:42px 12px 30px}
+.thanks.show{display:block}
+.tick{width:84px;height:84px;margin:0 auto 20px}
+.tick circle{fill:none;stroke:var(--gold);stroke-width:3;stroke-dasharray:240;stroke-dashoffset:240;animation:draw .7s .1s forwards}
+.tick path{fill:none;stroke:var(--garnet);stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:60;stroke-dashoffset:60;animation:draw .5s .7s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.thanks h2{font-size:2.2rem;color:var(--garnet)}
+.thanks p{color:var(--muted);margin-top:12px;max-width:34ch;margin-inline:auto}
+.thanks .box{margin:24px auto 0;max-width:340px;text-align:left;background:var(--pearl);border:1px solid var(--line);border-radius:16px;padding:16px 18px;font-size:.95rem}
+.thanks .box b{color:var(--garnet)}
+.thanks .box li{margin-top:6px;margin-left:18px}
+
+footer{text-align:center;color:var(--muted);font-size:.82rem;padding:0 20px 34px}
+
+@media(min-width:700px){
+  .hero{padding:32px 48px 80px}
+  .hero-in{max-width:900px;margin:0 auto;position:relative}
+  .hero h1{font-size:4rem;max-width:13ch}
+  .gem{right:0;top:30px;width:300px;height:260px}
+  .card{padding:36px 38px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.tick circle,.tick path{stroke-dashoffset:0}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-in">
+    <!-- <div class="brand">Aurelia Jewels</div> -->
+    <div class="gem" aria-hidden="true">
+      <svg viewBox="0 0 200 170"><defs>
+        <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#F4E4B5"/><stop offset="1" stop-color="#C9A24B"/></linearGradient>
+        <linearGradient id="g2" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#E8D3A0"/><stop offset="1" stop-color="#9C7A2E"/></linearGradient></defs>
+        <polygon points="50,10 150,10 195,62 100,160 5,62" fill="url(#g1)"/>
+        <polygon points="5,62 195,62 100,160" fill="url(#g2)" opacity=".85"/>
+        <polygon points="50,10 75,62 100,10" fill="#fff" opacity=".35"/>
+        <polygon points="100,10 125,62 150,10" fill="#fff" opacity=".18"/>
+        <polygon points="75,62 100,160 125,62" fill="#fff" opacity=".22"/>
+        <path d="M5 62h190M50 10l25 52 25 98 25-98 25-52M75 62 5 62M125 62l70 0" stroke="#5A1329" stroke-opacity=".35" fill="none"/>
+      </svg>
+    </div>
+    <h1>Sell the pieces people remember for life</h1>
+    <p class="lead">We are hiring Sales Associates for our jewellery showrooms. Apply in under 3 minutes.</p>
+    <div class="facts"><span>Full time</span><span>Showroom</span><span>Freshers welcome</span></div>
+    <a class="cta" href="#apply">Apply now</a>
+  </div>
+</header>
+
+<section class="perks">
+  <h2>Why work with us</h2>
+  <ul>
+    <li><span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 6H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span><div><b>Fixed salary plus incentives</b><small>Your sales are rewarded every month.</small></div></li>
+    <li><span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20v-6M6 20V10M18 20V4"/></svg></span><div><b>Paid product training</b><small>Learn gold, diamond and gemstone knowledge on the job.</small></div></li>
+    <li><span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/></svg></span><div><b>Grow into a senior role</b><small>Top performers move up to showroom lead.</small></div></li>
+  </ul>
+</section>
+
+<main class="wrap" id="apply">
+  <div class="card">
+
+    <form id="form" novalidate autocomplete="on">
+      <h2>Apply for Sales Associate</h2>
+      <p class="sub">Four quick questions, then upload your resume.</p>
+      <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+
+      <fieldset>
+        <legend>About you</legend>
+        <div class="field" data-f="name">
+          <label class="q" for="name">Full name</label>
+          <input type="text" id="name" name="name" autocomplete="name" placeholder="e.g. Priya Sharma">
+          <div class="err">Enter your full name.</div>
+        </div>
+        <div class="field" data-f="phone">
+          <label class="q" for="phone">Mobile number</label>
+          <input type="tel" id="phone" name="phone" inputmode="numeric" autocomplete="tel-national" maxlength="14" placeholder="10-digit number">
+          <div class="err">Enter a valid 10-digit mobile number.</div>
+        </div>
+        <div class="field" data-f="email">
+          <label class="q" for="email">Email <span class="hint">(optional)</span></label>
+          <input type="email" id="email" name="email" autocomplete="email" placeholder="you@example.com">
+          <div class="err">Enter a valid email address.</div>
+        </div>
+        <div class="field" data-f="city">
+          <label class="q" for="city">City you live in</label>
+          <input type="text" id="city" name="city" autocomplete="address-level2" placeholder="e.g. Delhi">
+          <div class="err">Enter your city.</div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Quick questions</legend>
+
+        <div class="field" data-f="experience" role="radiogroup" aria-labelledby="q1">
+          <span class="q" id="q1">1. How much sales experience do you have?</span>
+          <div class="chips">
+            <input type="radio" name="experience" id="e0" value="Fresher"><label for="e0">Fresher</label>
+            <input type="radio" name="experience" id="e1" value="Under 1 year"><label for="e1">Under 1 year</label>
+            <input type="radio" name="experience" id="e2" value="1 to 3 years"><label for="e2">1 to 3 years</label>
+            <input type="radio" name="experience" id="e3" value="3+ years"><label for="e3">3+ years</label>
+          </div>
+          <div class="err">Pick one option.</div>
+        </div>
+
+        <div class="field" data-f="jewelleryExp" role="radiogroup" aria-labelledby="q2">
+          <span class="q" id="q2">2. Have you worked in a jewellery or luxury retail store?</span>
+          <div class="chips">
+            <input type="radio" name="jewelleryExp" id="j0" value="Yes, jewellery"><label for="j0">Yes, jewellery</label>
+            <input type="radio" name="jewelleryExp" id="j1" value="Yes, other luxury or retail"><label for="j1">Other luxury or retail</label>
+            <input type="radio" name="jewelleryExp" id="j2" value="No"><label for="j2">No</label>
+          </div>
+          <div class="err">Pick one option.</div>
+        </div>
+
+        <div class="field" data-f="scenario">
+          <label class="q" for="scenario">3. A customer likes a necklace but says, “It is too expensive.” What would you say?</label>
+          <textarea id="scenario" name="scenario" maxlength="500" placeholder="Write 2 to 3 lines in your own words"></textarea>
+          <div class="counter"><span id="cnt">0</span>/500</div>
+          <div class="err">Write at least a short answer (20 characters or more).</div>
+        </div>
+
+        <div class="field" data-f="joining" role="radiogroup" aria-labelledby="q4">
+          <span class="q" id="q4">4. When can you join?</span>
+          <div class="chips">
+            <input type="radio" name="joining" id="d0" value="Immediately"><label for="d0">Immediately</label>
+            <input type="radio" name="joining" id="d1" value="Within 15 days"><label for="d1">Within 15 days</label>
+            <input type="radio" name="joining" id="d2" value="Within 30 days"><label for="d2">Within 30 days</label>
+            <input type="radio" name="joining" id="d3" value="More than 30 days"><label for="d3">30+ days</label>
+          </div>
+          <div class="err">Pick one option.</div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Your resume</legend>
+        <div class="field" data-f="resume">
+          <input class="file-input" type="file" id="resume" name="resume" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+          <label class="drop" id="drop" for="resume">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"/></svg>
+            <strong id="dropTitle">Tap to upload your resume</strong>
+            <small id="dropSub">PDF, DOC or DOCX, up to 5 MB</small>
+          </label>
+          <div class="err" id="resumeErr">Upload your resume as a PDF, DOC or DOCX file under 5 MB.</div>
+        </div>
+      </fieldset>
+
+      <div class="hp" aria-hidden="true"><label>Leave this empty<input type="text" id="website" name="website" tabindex="-1" autocomplete="off"></label></div>
+
+      <button class="submit" id="submitBtn" type="submit"><span class="spin"></span><span id="btnTxt">Submit application</span></button>
+      <div class="formerr" id="formErr" role="alert"></div>
+      <p class="note">Your details are only used for hiring.</p>
+    </form>
+
+    <div class="thanks" id="thanks" role="status" aria-live="polite" tabindex="-1">
+      <svg class="tick" viewBox="0 0 84 84" aria-hidden="true"><circle cx="42" cy="42" r="38"/><path d="M26 43l11 11 21-24"/></svg>
+      <h2>Application received</h2>
+      <p id="thanksMsg">Thank you. Your resume has been submitted to our hiring team.</p>
+      <div class="box">
+        <b>What happens next</b>
+        <ul>
+          <li>Our hiring team reviews your application.</li>
+          <li>Shortlisted candidates get a call on the number you gave.</li>
+          <li>Keep your phone reachable in the next few days.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>&copy; <span id="yr"></span> All rights reserved.</footer>
+
+<script>
+/* ============ SETTINGS ============ */
+// Paste your Google Apps Script Web App URL below (steps are in the guide).
+// While it is empty, the page runs in demo mode: nothing is uploaded.
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyhDWqNpPGpkkk9rCPuL0jnxGx7sZswIvAQBE9Ucu3xytt-VuW37vXoL5uvGtZHGzr2iw/exec";
+const MAX_MB = 5;
+/* ================================== */
+
+const $ = s => document.querySelector(s);
+const form = $("#form"), bar = $("#bar");
+const fileEl = $("#resume"), drop = $("#drop");
+$("#yr").textContent = new Date().getFullYear();
+
+const radioNames = ["experience","jewelleryExp","joining"];
+const checks = {
+  name:  () => $("#name").value.trim().length >= 2,
+  phone: () => /^[6-9]\d{9}$/.test($("#phone").value.replace(/\D/g,"").slice(-10)) && $("#phone").value.replace(/\D/g,"").length >= 10,
+  email: () => !$("#email").value.trim() || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($("#email").value.trim()),
+  city:  () => $("#city").value.trim().length >= 2,
+  experience:   () => !!form.querySelector('input[name="experience"]:checked'),
+  jewelleryExp: () => !!form.querySelector('input[name="jewelleryExp"]:checked'),
+  scenario: () => $("#scenario").value.trim().length >= 20,
+  joining:  () => !!form.querySelector('input[name="joining"]:checked'),
+  resume:   () => fileOk()
+};
+
+function fileOk(){
+  const f = fileEl.files[0];
+  if(!f) return false;
+  const okType = /\.(pdf|doc|docx)$/i.test(f.name);
+  return okType && f.size <= MAX_MB*1024*1024;
+}
+function mark(key, ok){
+  const el = form.querySelector('[data-f="'+key+'"]');
+  if(el) el.classList.toggle("invalid", !ok);
+}
+function progress(){
+  const keys = ["name","phone","city","experience","jewelleryExp","scenario","joining","resume"];
+  const done = keys.filter(k => checks[k]()).length;
+  bar.style.width = (done/keys.length*100)+"%";
+}
+
+// live feedback
+["name","phone","email","city","scenario"].forEach(id=>{
+  const el = $("#"+id);
+  el.addEventListener("input", ()=>{ if(el.closest(".invalid")) mark(id, checks[id]()); progress(); });
+  el.addEventListener("blur", ()=> { if(el.value) mark(id, checks[id]()); });
+});
+radioNames.forEach(n=>{
+  form.querySelectorAll('input[name="'+n+'"]').forEach(r=>r.addEventListener("change",()=>{mark(n,true);progress();}));
+});
+$("#scenario").addEventListener("input", e => $("#cnt").textContent = e.target.value.length);
+
+// file handling
+function showFile(){
+  const f = fileEl.files[0];
+  if(f && fileOk()){
+    drop.classList.add("has");
+    $("#dropTitle").textContent = f.name;
+    $("#dropTitle").className = "fname";
+    $("#dropSub").textContent = (f.size/1024/1024).toFixed(2)+" MB. Tap to change.";
+    mark("resume", true);
+  } else {
+    drop.classList.remove("has");
+    $("#dropTitle").textContent = "Tap to upload your resume";
+    $("#dropTitle").className = "";
+    $("#dropSub").textContent = "PDF, DOC or DOCX, up to 5 MB";
+    if(f){ mark("resume", false); fileEl.value = ""; }
+  }
+  progress();
+}
+fileEl.addEventListener("change", showFile);
+["dragenter","dragover"].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add("drag")}));
+["dragleave","drop"].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove("drag")}));
+drop.addEventListener("drop", e=>{
+  if(e.dataTransfer.files.length){ fileEl.files = e.dataTransfer.files; showFile(); }
+});
+
+function toBase64(file){
+  return new Promise((res,rej)=>{
+    const r = new FileReader();
+    r.onload = () => res(String(r.result).split(",")[1]);
+    r.onerror = () => rej(new Error("Could not read the file."));
+    r.readAsDataURL(file);
+  });
+}
+function showError(msg){
+  const e = $("#formErr"); e.textContent = msg; e.style.display = "block";
+}
+
+form.addEventListener("submit", async e=>{
+  e.preventDefault();
+  $("#formErr").style.display = "none";
+  if($("#website").value) return; // bot trap
+
+  let firstBad = null;
+  Object.keys(checks).forEach(k=>{
+    const ok = checks[k]();
+    mark(k, ok);
+    if(!ok && !firstBad) firstBad = k;
+  });
+  if(firstBad){
+    form.querySelector('[data-f="'+firstBad+'"]').scrollIntoView({behavior:"smooth",block:"center"});
+    return;
+  }
+
+  const btn = $("#submitBtn");
+  btn.disabled = true; btn.classList.add("loading"); $("#btnTxt").textContent = "Submitting...";
+
+  try{
+    const f = fileEl.files[0];
+    const payload = {
+      name: $("#name").value.trim(),
+      phone: $("#phone").value.replace(/\D/g,"").slice(-10),
+      email: $("#email").value.trim(),
+      city: $("#city").value.trim(),
+      experience: form.querySelector('input[name="experience"]:checked').value,
+      jewelleryExp: form.querySelector('input[name="jewelleryExp"]:checked').value,
+      scenario: $("#scenario").value.trim(),
+      joining: form.querySelector('input[name="joining"]:checked').value,
+      fileName: f.name,
+      mimeType: f.type || "application/octet-stream",
+      fileData: await toBase64(f)
+    };
+
+    if(SCRIPT_URL){
+      // no-cors: the request still reaches Apps Script, we just cannot read the reply.
+      // text/plain avoids a CORS preflight, which Apps Script does not support.
+      await fetch(SCRIPT_URL, {method:"POST", mode:"no-cors", headers:{"Content-Type":"text/plain;charset=utf-8"}, body: JSON.stringify(payload)});
+    } else {
+      await new Promise(r=>setTimeout(r,1200)); // demo mode
+    }
+
+    const first = payload.name.split(" ")[0];
+    $("#thanksMsg").textContent = "Thank you, "+first+". Your resume has been submitted to our hiring team.";
+    form.style.display = "none";
+    const t = $("#thanks"); t.classList.add("show");
+    t.scrollIntoView({behavior:"smooth",block:"start"}); t.focus({preventScroll:true});
+  }catch(err){
+    showError("Your application could not be sent. Check your internet and try again.");
+    btn.disabled = false; btn.classList.remove("loading"); $("#btnTxt").textContent = "Submit application";
+  }
+});
+</script>
+</body>
+</html>
