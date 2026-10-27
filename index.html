@@ -3,21 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#3B0A1A">
+<meta name="theme-color" content="#03654D">
 <title>Sales Associate Hiring </title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --garnet:#3B0A1A;
-  --garnet-2:#5A1329;
+  --garnet:#03654D;
+  --garnet-2:#058467;
   --gold:#C9A24B;
   --gold-soft:#E8D3A0;
-  --pearl:#FAF6F1;
-  --ink:#241418;
-  --muted:#6F5F63;
-  --line:#E6DCD6;
+  --pearl:#F5F8F6;
+  --ink:#10231D;
+  --muted:#5B6F68;
+  --line:#DCE5E0;
   --error:#B3261E;
   --ok:#2E7D5B;
 }
@@ -31,7 +31,7 @@ h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;line-hei
 .hero{background:radial-gradient(120% 80% at 80% 0%,var(--garnet-2) 0%,var(--garnet) 60%);color:#fff;padding:calc(20px + env(safe-area-inset-top)) 22px 56px;position:relative;overflow:hidden}
 .brand{font-family:"Cormorant Garamond",serif;font-size:1.35rem;letter-spacing:.04em;color:var(--gold-soft);font-weight:600}
 .hero h1{font-size:2.6rem;margin-top:34px;max-width:11ch}
-.hero p.lead{margin-top:14px;color:#EBDDE0;max-width:32ch;font-size:1.05rem}
+.hero p.lead{margin-top:14px;color:#DDF0E8;max-width:32ch;font-size:1.05rem}
 .gem{position:absolute;right:-34px;top:70px;width:170px;height:150px;opacity:.95;animation:glint 5s ease-in-out infinite}
 .gem svg{width:100%;height:100%;display:block}
 @keyframes glint{0%,100%{filter:brightness(1)}50%{filter:brightness(1.35)}}
@@ -52,7 +52,7 @@ h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;line-hei
 
 /* FORM */
 .wrap{padding:26px 16px 48px;max-width:640px;margin:0 auto}
-.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:24px 18px;box-shadow:0 18px 40px -26px rgba(59,10,26,.45)}
+.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:24px 18px;box-shadow:0 18px 40px -26px rgba(3,101,77,.45)}
 .card>h2{font-size:2rem;color:var(--garnet)}
 .card>p.sub{color:var(--muted);margin-top:6px;font-size:.95rem}
 .progress{height:5px;background:var(--line);border-radius:9px;margin:18px 0 6px;overflow:hidden}
@@ -99,6 +99,29 @@ input:focus,textarea:focus{outline:none;border-color:var(--gold);background:#fff
 .formerr{margin-top:14px;padding:12px 14px;border-radius:12px;background:#FDECEA;color:var(--error);font-size:.92rem;display:none}
 .note{text-align:center;color:var(--muted);font-size:.82rem;margin-top:14px}
 
+/* VOICE */
+.vhint{color:var(--muted);font-size:.92rem;margin:-2px 0 12px}
+.script{background:var(--pearl);border-left:4px solid var(--gold);border-radius:12px;padding:14px 16px;margin-bottom:14px;font-size:1.02rem;line-height:1.6}
+.script p+p{margin-top:8px}
+.script b{color:var(--garnet)}
+.voice{border:2px dashed var(--gold);background:#FFFCF5;border-radius:18px;padding:22px 14px;text-align:center}
+.voice[data-state=done]{border-style:solid;border-color:var(--ok);background:#F2F8F4}
+.vtime{font-variant-numeric:tabular-nums;font-weight:600;color:var(--garnet);font-size:1.5rem}
+.vtime small{font-size:.9rem;color:var(--muted);font-weight:500}
+.vbar{height:5px;background:var(--line);border-radius:9px;margin:12px auto 18px;overflow:hidden;max-width:320px}
+.vbar i{display:block;height:100%;width:0;background:var(--gold);transition:width .25s linear}
+.mic,.redo{font:inherit;font-weight:600;border:0;border-radius:999px;min-height:54px;padding:0 26px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:10px}
+.mic{background:var(--garnet);color:#fff;font-size:1.02rem}
+.mic svg{width:22px;height:22px}
+.voice[data-state=rec] .mic{background:var(--error)}
+.voice[data-state=rec] .mic svg{animation:pulse 1s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.25);opacity:.7}}
+.voice[data-state=done] .mic,.voice[data-state=done] .vbar{display:none}
+.voice audio{display:none;width:100%;margin-top:12px}
+.voice[data-state=done] audio{display:block}
+.redo{display:none;background:transparent;color:var(--garnet);border:1.5px solid var(--garnet);margin-top:14px;min-height:46px}
+.voice[data-state=done] .redo{display:inline-flex}
+
 /* THANK YOU */
 .thanks{display:none;text-align:center;padding:42px 12px 30px}
 .thanks.show{display:block}
@@ -138,7 +161,7 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;padding:0 20px 34px
         <polygon points="50,10 75,62 100,10" fill="#fff" opacity=".35"/>
         <polygon points="100,10 125,62 150,10" fill="#fff" opacity=".18"/>
         <polygon points="75,62 100,160 125,62" fill="#fff" opacity=".22"/>
-        <path d="M5 62h190M50 10l25 52 25 98 25-98 25-52M75 62 5 62M125 62l70 0" stroke="#5A1329" stroke-opacity=".35" fill="none"/>
+        <path d="M5 62h190M50 10l25 52 25 98 25-98 25-52M75 62 5 62M125 62l70 0" stroke="#03654D" stroke-opacity=".35" fill="none"/>
       </svg>
     </div>
     <h1>Sell the pieces people remember for life</h1>
@@ -162,7 +185,7 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;padding:0 20px 34px
 
     <form id="form" novalidate autocomplete="on">
       <h2>Apply for Sales Associate</h2>
-      <p class="sub">Four quick questions, then upload your resume.</p>
+      <p class="sub">Four quick questions, a short voice note, then upload your resume.</p>
       <div class="progress" aria-hidden="true"><i id="bar"></i></div>
 
       <fieldset>
@@ -233,6 +256,34 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;padding:0 20px 34px
       </fieldset>
 
       <fieldset>
+        <legend>Voice recording</legend>
+        <div class="field" data-f="voice">
+          <span class="q" id="q5">5. Read this script aloud and record it</span>
+          <p class="vhint">Read the script below in a clear, friendly voice, as if you are speaking to a customer. Your name is filled in from above.</p>
+          <div class="script">
+            <p>Hi!</p>
+            <p>This is <b id="sname">[your name]</b> calling you from DD Diamonds.</p>
+            <p>You have shown some interest in buying jewellery.</p>
+            <p>May I please understand your requirements and tentative budget for the same.</p>
+            <p>.....</p>
+            <p>Thank you!</p>
+            <p>It was very nice talking to you. Hope to see you at the store soon.</p>
+          </div>
+          <div class="voice" id="voice" data-state="idle">
+            <div class="vtime"><span id="vt">0:00</span> <small>/ 2:00</small></div>
+            <div class="vbar" aria-hidden="true"><i id="vbar"></i></div>
+            <button type="button" class="mic" id="micBtn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4"/></svg>
+              <span id="micTxt">Start recording</span>
+            </button>
+            <audio id="player" controls playsinline></audio>
+            <button type="button" class="redo" id="redoBtn">Record again</button>
+          </div>
+          <div class="err" id="voiceErr">You must record the script before submitting (at least 15 seconds).</div>
+        </div>
+      </fieldset>
+
+      <fieldset>
         <legend>Your resume</legend>
         <div class="field" data-f="resume">
           <input class="file-input" type="file" id="resume" name="resume" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
@@ -275,8 +326,9 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;padding:0 20px 34px
 /* ============ SETTINGS ============ */
 // Paste your Google Apps Script Web App URL below (steps are in the guide).
 // While it is empty, the page runs in demo mode: nothing is uploaded.
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyhDWqNpPGpkkk9rCPuL0jnxGx7sZswIvAQBE9Ucu3xytt-VuW37vXoL5uvGtZHGzr2iw/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyKxm-DyAym8vT9OOf_RjYPwaAapjWyMeaRTLcCDzAI1hdko2bVTG-p_ZYLGhtgMmiHdg/exec";
 const MAX_MB = 5;
+const MAX_SEC = 120, MIN_SEC = 15;   // voice note length limits (seconds)
 /* ================================== */
 
 const $ = s => document.querySelector(s);
@@ -284,6 +336,7 @@ const form = $("#form"), bar = $("#bar");
 const fileEl = $("#resume"), drop = $("#drop");
 $("#yr").textContent = new Date().getFullYear();
 
+const voice = {blob:null, secs:0, rec:null, stream:null, chunks:[], timer:null, t0:0};
 const radioNames = ["experience","jewelleryExp","joining"];
 const checks = {
   name:  () => $("#name").value.trim().length >= 2,
@@ -294,6 +347,7 @@ const checks = {
   jewelleryExp: () => !!form.querySelector('input[name="jewelleryExp"]:checked'),
   scenario: () => $("#scenario").value.trim().length >= 20,
   joining:  () => !!form.querySelector('input[name="joining"]:checked'),
+  voice:    () => !!voice.blob && voice.secs >= MIN_SEC,
   resume:   () => fileOk()
 };
 
@@ -308,7 +362,7 @@ function mark(key, ok){
   if(el) el.classList.toggle("invalid", !ok);
 }
 function progress(){
-  const keys = ["name","phone","city","experience","jewelleryExp","scenario","joining","resume"];
+  const keys = ["name","phone","city","experience","jewelleryExp","scenario","joining","voice","resume"];
   const done = keys.filter(k => checks[k]()).length;
   bar.style.width = (done/keys.length*100)+"%";
 }
@@ -361,6 +415,86 @@ function showError(msg){
   const e = $("#formErr"); e.textContent = msg; e.style.display = "block";
 }
 
+// ---------- voice recording ----------
+const voiceBox = $("#voice");
+function setState(st){ voiceBox.dataset.state = st; $("#micTxt").textContent = st==="rec" ? "Stop recording" : "Start recording"; }
+function voiceErr(msg){
+  const f = form.querySelector('[data-f="voice"]');
+  if(msg){ $("#voiceErr").textContent = msg; f.classList.add("invalid"); } else { f.classList.remove("invalid"); }
+}
+function fmt(t){ t = Math.floor(t); return Math.floor(t/60)+":"+String(t%60).padStart(2,"0"); }
+function pickMime(){
+  if(!window.MediaRecorder) return null;
+  const list = ["audio/mp4","audio/webm;codecs=opus","audio/webm","audio/ogg;codecs=opus"];
+  for(const m of list){ if(MediaRecorder.isTypeSupported(m)) return m; }
+  return "";
+}
+function tick(){
+  const s = (Date.now()-voice.t0)/1000;
+  $("#vt").textContent = fmt(s);
+  $("#vbar").style.width = Math.min(100, s/MAX_SEC*100)+"%";
+  if(s >= MAX_SEC) stopRec();
+}
+async function startRec(){
+  voiceErr("");
+  if(!navigator.mediaDevices || !window.MediaRecorder){
+    voiceErr("Voice recording is not supported in this browser. Please open this page in Chrome or Safari.");
+    return;
+  }
+  try{
+    voice.stream = await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true, noiseSuppression:true}});
+  }catch(e){
+    voiceErr("Microphone access is blocked. Allow the microphone in your browser settings and try again.");
+    return;
+  }
+  const mime = pickMime();
+  const opts = {audioBitsPerSecond:32000};
+  if(mime) opts.mimeType = mime;
+  voice.rec = new MediaRecorder(voice.stream, opts);
+  voice.chunks = [];
+  voice.rec.ondataavailable = ev => { if(ev.data && ev.data.size) voice.chunks.push(ev.data); };
+  voice.rec.onstop = finishRec;
+  voice.rec.start(1000);
+  voice.t0 = Date.now();
+  $("#vt").textContent = "0:00"; $("#vbar").style.width = "0";
+  setState("rec");
+  voice.timer = setInterval(tick, 250);
+}
+function stopRec(){
+  clearInterval(voice.timer);
+  if(voice.rec && voice.rec.state !== "inactive") voice.rec.stop();
+}
+function finishRec(){
+  const secs = Math.min(MAX_SEC, (Date.now()-voice.t0)/1000);
+  if(voice.stream) voice.stream.getTracks().forEach(t=>t.stop());
+  const type = (voice.rec.mimeType || "audio/webm");
+  const blob = new Blob(voice.chunks, {type});
+  if(secs < MIN_SEC || !blob.size){
+    voice.blob = null; voice.secs = 0; setState("idle");
+    $("#vt").textContent = "0:00"; $("#vbar").style.width = "0";
+    voiceErr("That was too short. Please record at least "+MIN_SEC+" seconds.");
+    progress(); return;
+  }
+  voice.blob = blob; voice.secs = Math.round(secs);
+  $("#player").src = URL.createObjectURL(blob);
+  setState("done"); voiceErr(""); progress();
+}
+$("#micBtn").addEventListener("click", ()=>{ voiceBox.dataset.state === "rec" ? stopRec() : startRec(); });
+$("#redoBtn").addEventListener("click", ()=>{
+  const pl = $("#player"); if(pl.src) URL.revokeObjectURL(pl.src);
+  pl.removeAttribute("src"); pl.load();
+  voice.blob = null; voice.secs = 0;
+  $("#vt").textContent = "0:00"; $("#vbar").style.width = "0";
+  setState("idle"); progress();
+});
+function syncName(){ $("#sname").textContent = $("#name").value.trim() || "[your name]"; }
+$("#name").addEventListener("input", syncName);
+function audioExt(type){
+  if(/mp4|aac|m4a/.test(type)) return "m4a";
+  if(/ogg/.test(type)) return "ogg";
+  return "webm";
+}
+
 form.addEventListener("submit", async e=>{
   e.preventDefault();
   $("#formErr").style.display = "none";
@@ -393,7 +527,11 @@ form.addEventListener("submit", async e=>{
       joining: form.querySelector('input[name="joining"]:checked').value,
       fileName: f.name,
       mimeType: f.type || "application/octet-stream",
-      fileData: await toBase64(f)
+      fileData: await toBase64(f),
+      audioData: await toBase64(voice.blob),
+      audioMime: voice.blob.type.split(";")[0],
+      audioExt: audioExt(voice.blob.type),
+      audioSecs: voice.secs
     };
 
     if(SCRIPT_URL){
