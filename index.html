@@ -99,6 +99,18 @@ input:focus,textarea:focus{outline:none;border-color:var(--gold);background:#fff
 .formerr{margin-top:14px;padding:12px 14px;border-radius:12px;background:#FDECEA;color:var(--error);font-size:.92rem;display:none}
 .note{text-align:center;color:var(--muted);font-size:.82rem;margin-top:14px}
 
+/* CONFIRM CHECKBOX */
+textarea.short{min-height:92px}
+.ack{position:relative;display:flex;gap:14px;align-items:flex-start;padding:16px;border:1.5px solid var(--line);border-radius:14px;background:var(--pearl);cursor:pointer;font-size:.96rem;line-height:1.5}
+.ack input{position:absolute;opacity:0;width:1px;height:1px}
+.cbx{flex:none;width:26px;height:26px;border:2px solid var(--garnet);border-radius:8px;background:#fff;position:relative;margin-top:1px;transition:background .15s}
+.cbx::after{content:"";position:absolute;left:7px;top:2px;width:7px;height:13px;border:solid #fff;border-width:0 3px 3px 0;transform:rotate(45deg) scale(0);transition:transform .15s}
+.ack input:checked+.cbx{background:var(--garnet)}
+.ack input:checked+.cbx::after{transform:rotate(45deg) scale(1)}
+.ack input:focus-visible+.cbx{outline:3px solid var(--gold);outline-offset:2px}
+.ack:has(input:checked){border-color:var(--garnet);background:#F2F8F4}
+.invalid .ack{border-color:var(--error)}
+
 /* VOICE */
 .vhint{color:var(--muted);font-size:.92rem;margin:-2px 0 12px}
 .script{background:var(--pearl);border-left:4px solid var(--gold);border-radius:12px;padding:14px 16px;margin-bottom:14px;font-size:1.02rem;line-height:1.6}
@@ -185,7 +197,7 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;padding:0 20px 34px
 
     <form id="form" novalidate autocomplete="on">
       <h2>Apply for Sales Associate</h2>
-      <p class="sub">Four quick questions, a short voice note, then upload your resume.</p>
+      <p class="sub">Five quick questions, a short voice recording, then upload your resume.</p>
       <div class="progress" aria-hidden="true"><i id="bar"></i></div>
 
       <fieldset>
@@ -236,15 +248,8 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;padding:0 20px 34px
           <div class="err">Pick one option.</div>
         </div>
 
-        <div class="field" data-f="scenario">
-          <label class="q" for="scenario">3. A customer likes a necklace but says, “It is too expensive.” What would you say?</label>
-          <textarea id="scenario" name="scenario" maxlength="500" placeholder="Write 2 to 3 lines in your own words"></textarea>
-          <div class="counter"><span id="cnt">0</span>/500</div>
-          <div class="err">Write at least a short answer (20 characters or more).</div>
-        </div>
-
         <div class="field" data-f="joining" role="radiogroup" aria-labelledby="q4">
-          <span class="q" id="q4">4. When can you join?</span>
+          <span class="q" id="q4">3. When can you join?</span>
           <div class="chips">
             <input type="radio" name="joining" id="d0" value="Immediately"><label for="d0">Immediately</label>
             <input type="radio" name="joining" id="d1" value="Within 15 days"><label for="d1">Within 15 days</label>
@@ -253,12 +258,24 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;padding:0 20px 34px
           </div>
           <div class="err">Pick one option.</div>
         </div>
+
+        <div class="field" data-f="gold">
+          <label class="q" for="gold">4. What percentage of pure gold is in a 14K gold ring?</label>
+          <input type="text" id="gold" name="gold" maxlength="60" autocomplete="off" placeholder="Your answer">
+          <div class="err">Enter your answer.</div>
+        </div>
+
+        <div class="field" data-f="fourc">
+          <label class="q" for="fourc">5. What are the 4 Cs of diamond grading?</label>
+          <textarea id="fourc" class="short" name="fourc" maxlength="300" placeholder="Write them in your own words"></textarea>
+          <div class="err">Enter your answer.</div>
+        </div>
       </fieldset>
 
       <fieldset>
         <legend>Voice recording</legend>
         <div class="field" data-f="voice">
-          <span class="q" id="q5">5. Read this script aloud and record it</span>
+          <span class="q" id="q5">6. Read this script aloud and record it</span>
           <p class="vhint">Read the script below in a clear, friendly voice, as if you are speaking to a customer. Your name is filled in from above.</p>
           <div class="script">
             <p>Hi!</p>
@@ -296,6 +313,18 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;padding:0 20px 34px
         </div>
       </fieldset>
 
+      <fieldset>
+        <legend>Confirmation</legend>
+        <div class="field" data-f="ack">
+          <label class="ack" for="ack">
+            <input type="checkbox" id="ack" name="ack">
+            <span class="cbx" aria-hidden="true"></span>
+            <span>I acknowledge that this position requires on-site attendance at the Vivek Vihar, Delhi store, and I confirm my ability to commute to this location daily.</span>
+          </label>
+          <div class="err">Please tick this box to confirm before submitting.</div>
+        </div>
+      </fieldset>
+
       <div class="hp" aria-hidden="true"><label>Leave this empty<input type="text" id="website" name="website" tabindex="-1" autocomplete="off"></label></div>
 
       <button class="submit" id="submitBtn" type="submit"><span class="spin"></span><span id="btnTxt">Submit application</span></button>
@@ -320,7 +349,7 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;padding:0 20px 34px
   </div>
 </main>
 
-<footer>&copy; <span id="yr"></span> All rights reserved.</footer>
+<footer>&copy; DD Diamonds <span id="yr"></span>. All rights reserved.</footer>
 
 <script>
 /* ============ SETTINGS ============ */
@@ -345,10 +374,12 @@ const checks = {
   city:  () => $("#city").value.trim().length >= 2,
   experience:   () => !!form.querySelector('input[name="experience"]:checked'),
   jewelleryExp: () => !!form.querySelector('input[name="jewelleryExp"]:checked'),
-  scenario: () => $("#scenario").value.trim().length >= 20,
   joining:  () => !!form.querySelector('input[name="joining"]:checked'),
+  gold:     () => $("#gold").value.trim().length >= 2,
+  fourc:    () => $("#fourc").value.trim().length >= 3,
   voice:    () => !!voice.blob && voice.secs >= MIN_SEC,
-  resume:   () => fileOk()
+  resume:   () => fileOk(),
+  ack:      () => $("#ack").checked
 };
 
 function fileOk(){
@@ -362,13 +393,13 @@ function mark(key, ok){
   if(el) el.classList.toggle("invalid", !ok);
 }
 function progress(){
-  const keys = ["name","phone","city","experience","jewelleryExp","scenario","joining","voice","resume"];
+  const keys = ["name","phone","city","experience","jewelleryExp","joining","gold","fourc","voice","resume","ack"];
   const done = keys.filter(k => checks[k]()).length;
   bar.style.width = (done/keys.length*100)+"%";
 }
 
 // live feedback
-["name","phone","email","city","scenario"].forEach(id=>{
+["name","phone","email","city","gold","fourc"].forEach(id=>{
   const el = $("#"+id);
   el.addEventListener("input", ()=>{ if(el.closest(".invalid")) mark(id, checks[id]()); progress(); });
   el.addEventListener("blur", ()=> { if(el.value) mark(id, checks[id]()); });
@@ -376,7 +407,7 @@ function progress(){
 radioNames.forEach(n=>{
   form.querySelectorAll('input[name="'+n+'"]').forEach(r=>r.addEventListener("change",()=>{mark(n,true);progress();}));
 });
-$("#scenario").addEventListener("input", e => $("#cnt").textContent = e.target.value.length);
+$("#ack").addEventListener("change", ()=>{ mark("ack", $("#ack").checked); progress(); });
 
 // file handling
 function showFile(){
@@ -523,7 +554,6 @@ form.addEventListener("submit", async e=>{
       city: $("#city").value.trim(),
       experience: form.querySelector('input[name="experience"]:checked').value,
       jewelleryExp: form.querySelector('input[name="jewelleryExp"]:checked').value,
-      scenario: $("#scenario").value.trim(),
       joining: form.querySelector('input[name="joining"]:checked').value,
       fileName: f.name,
       mimeType: f.type || "application/octet-stream",
@@ -531,7 +561,10 @@ form.addEventListener("submit", async e=>{
       audioData: await toBase64(voice.blob),
       audioMime: voice.blob.type.split(";")[0],
       audioExt: audioExt(voice.blob.type),
-      audioSecs: voice.secs
+      audioSecs: voice.secs,
+      goldPurity: $("#gold").value.trim(),
+      fourCs: $("#fourc").value.trim(),
+      onsiteAck: $("#ack").checked
     };
 
     if(SCRIPT_URL){
