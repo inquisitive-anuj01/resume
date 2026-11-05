@@ -99,6 +99,11 @@ input:focus,textarea:focus{outline:none;border-color:var(--gold);background:#fff
 .formerr{margin-top:14px;padding:12px 14px;border-radius:12px;background:#FDECEA;color:var(--error);font-size:.92rem;display:none}
 .note{text-align:center;color:var(--muted);font-size:.82rem;margin-top:14px}
 
+/* MCQ + highlight */
+.chips.stack{flex-direction:column;gap:8px}
+.chips.stack label{width:100%;border-radius:14px}
+.hl{background:#F6E3A8;color:var(--garnet);font-weight:700;padding:1px 7px;border-radius:6px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+
 /* CONFIRM CHECKBOX */
 textarea.short{min-height:92px}
 .ack{position:relative;display:flex;gap:14px;align-items:flex-start;padding:16px;border:1.5px solid var(--line);border-radius:14px;background:var(--pearl);cursor:pointer;font-size:.96rem;line-height:1.5}
@@ -259,16 +264,26 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;padding:0 20px 34px
           <div class="err">Pick one option.</div>
         </div>
 
-        <div class="field" data-f="gold">
-          <label class="q" for="gold">4. What percentage of pure gold is in a 14K gold ring?</label>
-          <input type="text" id="gold" name="gold" maxlength="60" autocomplete="off" placeholder="Your answer">
-          <div class="err">Enter your answer.</div>
+        <div class="field" data-f="gold" role="radiogroup" aria-labelledby="q4">
+          <span class="q" id="q4">4. What percentage of pure gold is in a 14K gold ring?</span>
+          <div class="chips">
+            <input type="radio" name="gold" id="g0" value="41.7%"><label for="g0">41.7%</label>
+            <input type="radio" name="gold" id="g1" value="58.3%"><label for="g1">58.3%</label>
+            <input type="radio" name="gold" id="g2" value="75%"><label for="g2">75%</label>
+            <input type="radio" name="gold" id="g3" value="91.6%"><label for="g3">91.6%</label>
+          </div>
+          <div class="err">Pick one option.</div>
         </div>
 
-        <div class="field" data-f="fourc">
-          <label class="q" for="fourc">5. What are the 4 Cs of diamond grading?</label>
-          <textarea id="fourc" class="short" name="fourc" maxlength="300" placeholder="Write them in your own words"></textarea>
-          <div class="err">Enter your answer.</div>
+        <div class="field" data-f="fourc" role="radiogroup" aria-labelledby="q5">
+          <span class="q" id="q5">5. What are the 4 Cs of diamond grading?</span>
+          <div class="chips stack">
+            <input type="radio" name="fourc" id="c0" value="Carat, Cut, Clarity, Cost"><label for="c0">Carat, Cut, Clarity, Cost</label>
+            <input type="radio" name="fourc" id="c1" value="Carat, Cut, Clarity, Color"><label for="c1">Carat, Cut, Clarity, Color</label>
+            <input type="radio" name="fourc" id="c2" value="Cut, Color, Certificate, Craftsmanship"><label for="c2">Cut, Color, Certificate, Craftsmanship</label>
+            <input type="radio" name="fourc" id="c3" value="Carat, Clarity, Color, Certification"><label for="c3">Carat, Clarity, Color, Certification</label>
+          </div>
+          <div class="err">Pick one option.</div>
         </div>
       </fieldset>
 
@@ -319,7 +334,7 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;padding:0 20px 34px
           <label class="ack" for="ack">
             <input type="checkbox" id="ack" name="ack">
             <span class="cbx" aria-hidden="true"></span>
-            <span>I acknowledge that this position requires on-site attendance at the Vivek Vihar, Delhi store, and I confirm my ability to commute to this location daily.</span>
+            <span>I acknowledge that this position requires on-site attendance at the <mark class="hl">Vivek Vihar, Delhi store</mark>, and I confirm my ability to commute to this location daily.</span>
           </label>
           <div class="err">Please tick this box to confirm before submitting.</div>
         </div>
@@ -366,7 +381,7 @@ const fileEl = $("#resume"), drop = $("#drop");
 $("#yr").textContent = new Date().getFullYear();
 
 const voice = {blob:null, secs:0, rec:null, stream:null, chunks:[], timer:null, t0:0};
-const radioNames = ["experience","jewelleryExp","joining"];
+const radioNames = ["experience","jewelleryExp","joining","gold","fourc"];
 const checks = {
   name:  () => $("#name").value.trim().length >= 2,
   phone: () => /^[6-9]\d{9}$/.test($("#phone").value.replace(/\D/g,"").slice(-10)) && $("#phone").value.replace(/\D/g,"").length >= 10,
@@ -375,8 +390,8 @@ const checks = {
   experience:   () => !!form.querySelector('input[name="experience"]:checked'),
   jewelleryExp: () => !!form.querySelector('input[name="jewelleryExp"]:checked'),
   joining:  () => !!form.querySelector('input[name="joining"]:checked'),
-  gold:     () => $("#gold").value.trim().length >= 2,
-  fourc:    () => $("#fourc").value.trim().length >= 3,
+  gold:     () => !!form.querySelector('input[name="gold"]:checked'),
+  fourc:    () => !!form.querySelector('input[name="fourc"]:checked'),
   voice:    () => !!voice.blob && voice.secs >= MIN_SEC,
   resume:   () => fileOk(),
   ack:      () => $("#ack").checked
@@ -399,7 +414,7 @@ function progress(){
 }
 
 // live feedback
-["name","phone","email","city","gold","fourc"].forEach(id=>{
+["name","phone","email","city"].forEach(id=>{
   const el = $("#"+id);
   el.addEventListener("input", ()=>{ if(el.closest(".invalid")) mark(id, checks[id]()); progress(); });
   el.addEventListener("blur", ()=> { if(el.value) mark(id, checks[id]()); });
@@ -562,8 +577,8 @@ form.addEventListener("submit", async e=>{
       audioMime: voice.blob.type.split(";")[0],
       audioExt: audioExt(voice.blob.type),
       audioSecs: voice.secs,
-      goldPurity: $("#gold").value.trim(),
-      fourCs: $("#fourc").value.trim(),
+      goldPurity: form.querySelector('input[name="gold"]:checked').value,
+      fourCs: form.querySelector('input[name="fourc"]:checked').value,
       onsiteAck: $("#ack").checked
     };
 
